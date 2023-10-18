@@ -6,7 +6,7 @@ const Navbar = () => {
   // const closeDropDown;
   return (
     <>
-      <div className="navbar ">
+      <div className="navbar px-[2rem] lg:px-[5rem]">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn  bg-transparent lg:hidden">
