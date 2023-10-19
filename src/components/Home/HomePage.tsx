@@ -5,9 +5,9 @@ import Navbar from "./Navbar/Navbar";
 const HomePage = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <Category /> */}
-      <FooterPage />
+      {/* <FooterPage /> */}
     </div>
   );
 };

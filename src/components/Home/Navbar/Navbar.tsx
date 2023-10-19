@@ -26,6 +26,9 @@ const Navbar = () => {
                 <Link href="Home">Suppliers</Link>
               </li>
               <li>
+                <Link href="/dashboard">Dashboard</Link>
+              </li>
+              <li>
                 <Link href="Home">About Us</Link>
               </li>
               <li>
@@ -54,6 +57,9 @@ const Navbar = () => {
               <Link className="hover:text-blue-700 " href="Home">
                 Suppliers
               </Link>
+            </li>
+            <li>
+              <Link href="/dashboard">Dashboard</Link>
             </li>
             <li>
               <Link className="hover:text-blue-700 " href="Home">
