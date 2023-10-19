@@ -1,14 +1,12 @@
 import RootLayout from "@/Layouts/RootLayout";
 import HomePage from "@/components/Home/HomePage";
+import LoginPage from "./login/page";
+import { Children } from "react";
 
-export default function Home() {
+export default function Home({ children }) {
   return (
     <main className="  ">
-      {/* <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex"> */}
-      <RootLayout>
-        <HomePage />
-      </RootLayout>
-      {/* </div> */}
+      <RootLayout>{Children}</RootLayout>
     </main>
   );
 }

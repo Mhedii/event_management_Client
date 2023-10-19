@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div>
       {/* <Navbar /> */}
-      {/* <Category /> */}
+      <Category />
       {/* <FooterPage /> */}
     </div>
   );

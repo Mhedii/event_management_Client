@@ -1,207 +1,197 @@
-import type { MenuProps } from "antd";
-import {
-  ProfileOutlined,
-  TableOutlined,
-  AppstoreOutlined,
-  ScheduleOutlined,
-  ThunderboltOutlined,
-  CreditCardOutlined,
-  FileTextOutlined,
-} from "@ant-design/icons";
+import React, { useState } from "react";
+import { TiArrowLeft, TiArrowRight } from "react-icons/ti";
 import Link from "next/link";
-import { USER_ROLE } from "./role";
-export const sidebarItems = (role: string) => {
-  const defaultSidebarItems: MenuProps["items"] = [
+
+type SidebarItem = {
+  label: string | JSX.Element;
+  key: string;
+  icon?: JSX.Element;
+  children?: SidebarItem[];
+};
+const Sidebar = (role: string) => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setCollapsed(!collapsed);
+  };
+
+  const items: SidebarItem[] = [
     {
       label: "Profile",
       key: "profile",
-      icon: <ProfileOutlined />,
+      icon: <TiArrowRight />,
       children: [
         {
-          label: <Link href={`/${role}/profile`}>Account Profile</Link>,
-          key: `/${role}/profile`,
+          label: (
+            <Link href="/admin/profile">
+              <p>Account Profile</p>
+            </Link>
+          ),
+          key: "/admin/profile",
         },
         {
-          label: <Link href={`/${role}/change-password`}>Change Password</Link>,
-          key: `/${role}/change-password`,
-        },
-      ],
-    },
-  ];
-
-  const commonAdminSidebarItems: MenuProps["items"] = [
-    {
-      label: <Link href={`/${role}/manage-student`}>Manage Clients</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-student`,
-    },
-    {
-      label: <Link href={`/${role}/manage-faculty`}>Manage Service</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-faculty`,
-    },
-    {
-      label: <Link href={`/${role}/manage-faculty`}>Manage Booking</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-faculty`,
-    },
-    {
-      label: <Link href={`/${role}/manage-faculty`}>Manage Profile</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-faculty`,
-    },
-  ];
-
-  const adminSidebarItems: MenuProps["items"] = [
-    ...defaultSidebarItems,
-    ...commonAdminSidebarItems,
-    {
-      label: "Manage Content",
-      key: "manage-content",
-      icon: <TableOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/academic/faculty`}>Faculties</Link>,
-          key: `/${role}/academic/faculty`,
+          label: (
+            <Link href="/admin/change-password">
+              <a>Change Password</a>
+            </Link>
+          ),
+          key: "/admin/change-password",
         },
         {
-          label: <Link href={`/${role}/academic/department`}>Departments</Link>,
-          key: `/${role}/academic/department`,
+          label: (
+            <Link href="/admin/manage-student">
+              <a>Manage Students</a>
+            </Link>
+          ),
+          // icon: <Table set="bulk" />,
+          key: "/admin/manage-student",
         },
         {
-          label: <Link href={`/${role}/academic/semester`}>Semesters</Link>,
-          key: `/${role}/academic/semester`,
+          label: (
+            <Link href="/admin/manage-service">
+              <a>Manage Services</a>
+            </Link>
+          ),
+          // icon: <Table set="bulk" />,
+          key: "/admin/manage-service",
         },
-      ],
-    },
-    // {
-    //   label: "Management",
-    //   key: "management",
-    //   icon: <AppstoreOutlined />,
-    //   children: [
-    //     {
-    //       label: <Link href={`/${role}/department`}>Department</Link>,
-    //       key: `/${role}/department`,
-    //     },
-    //     {
-    //       label: <Link href={`/${role}/building`}>Building</Link>,
-    //       key: `/${role}/building`,
-    //     },
-    //     {
-    //       label: <Link href={`/${role}/room`}>Rooms</Link>,
-    //       key: `/${role}/room`,
-    //     },
-    //     {
-    //       label: <Link href={`/${role}/course`}>Course</Link>,
-    //       key: `/${role}/course`,
-    //     },
-    //     {
-    //       label: (
-    //         <Link href={`/${role}/semester-registration`}>
-    //           Semester registration
-    //         </Link>
-    //       ),
-    //       key: `/${role}/semester-registration`,
-    //     },
-    //     {
-    //       label: <Link href={`/${role}/offered-course`}>Offered courses</Link>,
-    //       key: `/${role}/offered-course`,
-    //     },
-    //     {
-    //       label: (
-    //         <Link href={`/${role}/offered-course-section`}>
-    //           Course sections
-    //         </Link>
-    //       ),
-    //       key: `/${role}/offered-course-section`,
-    //     },
-    //     {
-    //       label: (
-    //         <Link href={`/${role}/offered-course-schedule`}>
-    //           Course schedules
-    //         </Link>
-    //       ),
-    //       key: `/${role}/offered-course-schedule`,
-    //     },
-    //   ],
-    // },
-  ];
-
-  const superAdminSidebarItems: MenuProps["items"] = [
-    ...defaultSidebarItems,
-    ...commonAdminSidebarItems,
-    {
-      label: <Link href={`/${role}/admin`}>Manage Admin</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/admin`,
-    },
-    {
-      label: <Link href={`/${role}/user`}>Manage User</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/user`,
-    },
-    {
-      label: "Manage permission",
-      key: "manage-permission",
-      icon: <AppstoreOutlined />,
-      children: [
         {
-          label: <Link href={`/${role}/permission`}>View permissions</Link>,
-          key: `/${role}/permission`,
+          label: (
+            <Link href="/admin/manage-booking">
+              <a>Manage Bookings</a>
+            </Link>
+          ),
+          // icon: <Table set="bulk" />,
+          key: "/admin/manage-booking",
+        },
+        {
+          label: (
+            <Link href="/admin/manage-profile">
+              <a>Manage Profiles</a>
+            </Link>
+          ),
+          // icon: <Table set="bulk" />,
+          key: "/admin/manage-profile",
+        },
+        {
+          label: "Manage Content",
+          key: "manage-content",
+          // icon: <Table set="bulk" />,
+          children: [
+            {
+              label: (
+                <Link href="/admin/academic/faculty">
+                  <a>Faculties</a>
+                </Link>
+              ),
+              key: "/admin/academic/faculty",
+            },
+            {
+              label: (
+                <Link href="/admin/academic/department">
+                  <a>Departments</a>
+                </Link>
+              ),
+              key: "/admin/academic/department",
+            },
+            {
+              label: (
+                <Link href="/admin/academic/semester">
+                  <a>Semesters</a>
+                </Link>
+              ),
+              key: "/admin/academic/semester",
+            },
+          ],
+        },
+        {
+          label: (
+            <Link href="/admin/manage-admin">
+              <a>Manage Admins</a>
+            </Link>
+          ),
+          // icon: <Table set="bulk" />,
+          key: "/admin/manage-admin",
+        },
+        {
+          label: (
+            <Link href="/admin/manage-user">
+              <a>Manage Users</a>
+            </Link>
+          ),
+          // icon: <Table set="bulk" />,
+          key: "/admin/manage-user",
+        },
+        {
+          label: "Manage Permission",
+          key: "manage-permission",
+          // icon: <Collection set="bulk" />,
+          children: [
+            {
+              label: (
+                <Link href="/admin/permission">
+                  <a>View Permissions</a>
+                </Link>
+              ),
+              key: "/admin/permission",
+            },
+          ],
+        },
+        {
+          label: (
+            <Link href="/admin/profile">
+              <a>Profile</a>
+            </Link>
+          ),
+          key: "profile",
+          // icon: <Table set="bulk" />,
         },
       ],
     },
     {
-      label: "profile",
-      key: "management",
-      icon: <AppstoreOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/department`}>Profile</Link>,
-          key: `/${role}/department`,
-        },
-      ],
+      label: (
+        <Link href="/admin/manage-student">
+          <a>Manage Students</a>
+        </Link>
+      ),
+      icon: <TiArrowRight />,
+      key: "/admin/manage-student",
     },
+    // Add other sidebar items here...
   ];
 
-  const clientSidebarItems: MenuProps["items"] = [
-    // ...defaultSidebarItems,
-    {
-      label: <Link href={`/${role}/courses`}>Cart</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/courses`,
-    },
-    {
-      label: <Link href={`/${role}/courses/schedule`}>Booking</Link>,
-      icon: <ScheduleOutlined />,
-      key: `/${role}/courses/schedule`,
-    },
-    {
-      label: <Link href={`/${role}/registration`}>Reviews</Link>,
-      icon: <ThunderboltOutlined />,
-      key: `/${role}/registration`,
-    },
-    {
-      label: <Link href={`/${role}/payment`}>Hisory</Link>,
-      icon: <CreditCardOutlined />,
-      key: `/${role}/payment`,
-    },
-    {
-      label: <Link href={`/${role}/payment`}>Feedback</Link>,
-      icon: <CreditCardOutlined />,
-      key: `/${role}/payment`,
-    },
-    {
-      label: <Link href={`/${role}/academic-report`}>Booking Order</Link>,
-      icon: <FileTextOutlined />,
-      key: `/${role}/academic-report`,
-    },
-  ];
-
-  if (role === USER_ROLE.SUPER_ADMIN) return superAdminSidebarItems;
-  else if (role === USER_ROLE.ADMIN) return adminSidebarItems;
-  else if (role === USER_ROLE.CLIENT) return clientSidebarItems;
-  else {
-    return defaultSidebarItems;
-  }
+  return (
+    <div className="min-h-screen flex">
+      <aside
+        className={`w-16 p-4 bg-blue-700 flex flex-col items-center justify-between ${
+          collapsed ? "w-16" : "w-60"
+        }`}
+      >
+        <div>
+          <button
+            className="text-white focus:outline-none"
+            onClick={toggleCollapse}
+          >
+            {collapsed ? <TiArrowRight size={24} /> : <TiArrowLeft size={24} />}
+          </button>
+        </div>
+        <ul>
+          {items.map((item) => (
+            <li key={item.key} className="mb-2">
+              <a
+                href={item.key}
+                className="flex items-center"
+                onClick={() => setCollapsed(false)}
+              >
+                {item.icon}
+                {!collapsed && <span>{item.label}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  );
 };
+
+export default Sidebar;

@@ -1,29 +1,28 @@
+import SideBar from "@/components/ui/Sidebar";
 import { useState } from "react";
 import { CiMenuFries } from "react-icons/ci";
+import { AiOutlineHome } from "react-icons/ai";
+import { useGetServicesQuery } from "@/redux/features/services/serviceApi";
 
 const items = [
-  { label: "Option 1", key: "1", icon: "fas fa-chart-pie" },
-  { label: "Option 2", key: "2", icon: "fas fa-desktop" },
+  { label: "Option 1", key: "1" },
+  { label: "Option 2", key: "2" },
   {
-    label: "User",
+    label: "Home",
     key: "sub1",
-    icon: "fas fa-user",
-    children: [
-      { label: "Tom", key: "3" },
-      { label: "Bill", key: "4" },
-      { label: "Alex", key: "5" },
-    ],
+    icon: <AiOutlineHome />,
+    to: "/",
   },
   {
     label: "Team",
     key: "sub2",
-    icon: "fas fa-users",
+    // icon: "fas fa-users",
     children: [
       { label: "Team 1", key: "6" },
       { label: "Team 2", key: "8" },
     ],
   },
-  { label: "Files", key: "9", icon: "fas fa-file" },
+  { label: "Files", key: "9" },
 ];
 
 const DrawerPage = () => {
@@ -58,8 +57,9 @@ const DrawerPage = () => {
         <ul>
           {items.map((item) => (
             <li key={item.key} className="mb-2">
-              <a href="#" className="flex items-center">
-                <i className={`mr-2 ${item.icon}`} />
+              <a href={item.to} className="flex items-center">
+                <span className="mr-2 text-xl">{item?.icon}</span>
+
                 {!collapsed && <span>{item.label}</span>}
               </a>
             </li>
@@ -81,6 +81,7 @@ const DrawerPage = () => {
           </div>
           <div className="p-4 bg-white rounded-md shadow-md min-h-screen">
             <p>Bill is a cat.</p>
+            <p>{}</p>
           </div>
         </nav>
       </main>
